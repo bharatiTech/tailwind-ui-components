@@ -5,6 +5,7 @@ import InfoIcon from "../../assets/icons/info.svg?react";
 import SuccessIcon from "../../assets/icons/success.svg?react";
 import WarningIcon from "../../assets/icons/warning.svg?react";
 import IconButton from "../IconButton";
+import Tooltip from "../Tooltip";
 
 type ToastVariant = "info" | "success" | "warning" | "error";
 type ToastDirection = "left" | "right";
@@ -20,12 +21,12 @@ interface IToastProps {
   transitionDirection?: ToastDirection;
 }
 
-const getToastColor = (variant: ToastVariant): string => {
+const getToastBgColor = (variant: ToastVariant): string => {
   const colorMap = {
-    error: "#FFE2E5",
-    info: "#F7FAFC",
-    success: "#E7F4E8",
-    warning: "#FFF4E4",
+    error: "bg-[#FFE2E5]",
+    info: "bg-[#F7FAFC]",
+    success: "bg-[#E7F4E8]",
+    warning: "bg-[#FFF4E4]",
   };
   return colorMap[variant];
 };
@@ -89,19 +90,13 @@ const Toast = ({
   function getTransitionDirection(direction?: ToastDirection) {
     switch (direction) {
       case "left": {
-        return isAnimating
-          ? "translate-x-0 opacity-100"
-          : "-translate-x-full opacity-0";
+        return isAnimating ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0";
       }
       case "right": {
-        return isAnimating
-          ? "translate-x-0 opacity-100"
-          : "translate-x-full opacity-0";
+        return isAnimating ? "translate-x-0 opacity-100" : "translate-x-full opacity-0";
       }
       default: {
-        return isAnimating
-          ? "translate-x-0 opacity-100"
-          : "translate-x-full opacity-0";
+        return isAnimating ? "translate-x-0 opacity-100" : "translate-x-full opacity-0";
       }
     }
   }
@@ -110,24 +105,25 @@ const Toast = ({
 
   return (
     <div
-      className={`flex flex-row items-center gap-3 rounded p-3 h-[45px] w-3xs transition-all duration-500 ease-in-out transform ${
-        getTransitionDirection(transitionDirection)
-        // isAnimating ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
-      }`}
-      style={{ backgroundColor: getToastColor(variant) }}
+      className={`flex flex-row items-center gap-3 rounded p-3 h-[45px] w-3xs transition-all duration-500 ease-in-out ${getToastBgColor(
+        variant
+      )} transform ${getTransitionDirection(transitionDirection)}`}
       id="toast"
     >
       {ToastIcon(variant)}
+
       <div className="flex flex-col">
-        <p className="text-xs font-bold font-inter truncate max-w-[10ch]">
-          {title}
-        </p>
+        <Tooltip title={title.length > 20 ? title : ""} placement="right">
+          <p className="text-xs font-bold font-inter truncate max-w-[20ch]">{title}</p>
+        </Tooltip>
+
         {description && (
-          <p className="text-xs font-normal truncate max-w-[20ch]">
-            {description}
-          </p>
+          <Tooltip title={description.length > 20 ? description : ""} placement="left">
+            <p className="text-xs font-normal truncate max-w-[20ch]">{description}</p>
+          </Tooltip>
         )}
       </div>
+
       {closable && (
         <IconButton onClick={handleClose}>
           <CloseIcon />
