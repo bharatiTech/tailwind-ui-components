@@ -125,7 +125,7 @@ const Toast = ({
       </div>
 
       {closable && (
-        <IconButton onClick={handleClose}>
+        <IconButton onClick={handleClose} className="ml-auto">
           <CloseIcon />
         </IconButton>
       )}

@@ -1,9 +1,9 @@
 import Button from "../Button";
-import SuccessIcon from "../../assets/icons/success.svg?react";
 
 interface IBannerProps {
   title: string;
   description: string;
+
   imageUrl?: string;
   actionLabel?: string;
   onAction?: () => void;
@@ -20,41 +20,13 @@ const Banner = ({ description, title, actionLabel, imageUrl, onAction }: IBanner
             {actionLabel}
           </Button>
         )}
-
-        <Button onClick={() => onAction?.()} size="large">
-          A Large Button
-        </Button>
-        <Button onClick={() => onAction?.()} size="medium">
-          Medium
-        </Button>
-        <Button onClick={() => onAction?.()} size="small">
-          Small
-        </Button>
-        <Button
-          onClick={() => onAction?.()}
-          size="small"
-          variant="secondary"
-          endIcon={<SuccessIcon style={{ width: "15px", height: "15px" }} />}
-        >
-          Small
-        </Button>
-        <Button onClick={() => onAction?.()} size="small" variant="terciary">
-          Small
-        </Button>
-        <Button
-          onClick={() => onAction?.()}
-          size="medium"
-          variant="secondary"
-          startIcon={<SuccessIcon style={{ width: "15px", height: "15px" }} />}
-        >
-          Medium
-        </Button>
-        <Button onClick={() => onAction?.()} size="medium" variant="terciary">
-          Medium
-        </Button>
       </div>
 
-      {imageUrl && <div></div>}
+      {imageUrl && (
+        <div className="flex flex-col p-1 justify-center items-center">
+          <img src={imageUrl} />
+        </div>
+      )}
     </div>
   );
 };
