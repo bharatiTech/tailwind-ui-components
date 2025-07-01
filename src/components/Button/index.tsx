@@ -5,6 +5,7 @@ type Variant = "primary" | "secondary" | "terciary";
 
 interface IButtonProps {
   children: string;
+  className?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   endIcon?: ReactNode;
   startIcon?: ReactNode;
@@ -43,13 +44,21 @@ function getSpaceAndSize(size: ButtonSize) {
   return spaceSizeMap[size];
 }
 
-const Button = ({ children, onClick, endIcon, startIcon, size = "medium", variant = "primary" }: IButtonProps) => {
+const Button = ({
+  children,
+  className,
+  onClick,
+  endIcon,
+  startIcon,
+  size = "medium",
+  variant = "primary",
+}: IButtonProps) => {
   const buttonBorder =
     variant === "secondary" ? "border border-[#1A365D]" : variant === "terciary" ? "border-0" : "border-1";
 
   return (
     <button
-      className={`font-semibold ${buttonBorder} ${getSpaceAndSize(size)} 
+      className={`${className ?? ""} font-semibold ${buttonBorder} ${getSpaceAndSize(size)} 
       ${getButtonBgColor(variant)} ${getButtonTextColor(variant)} flex flex-row gap-1.5 items-center cursor-pointer 
       relative overflow-hidden rounded-lg transition-all duration-500 transform before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:w-0 before:h-0 before:bg-[#adc7e33f] before:rounded-full before:transform before:-translate-x-1/2 before:-translate-y-1/2 before:transition-all before:duration-500 before:ease-out active:before:w-80 active:before:h-80`}
       onClick={(e) => onClick?.(e)}
