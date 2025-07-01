@@ -73,8 +73,13 @@ function App() {
       {/* Audio visualization */}
       {/* <AudioVisualizationStatic /> */}
 
+      <div className="bg-primary-600 button-lg">Primary themed div</div>
       <div className="bg-primary button-lg">Primary themed div</div>
-      
+      <div className="bg-primary-400 button-lg">Primary themed div</div>
+      <div className="bg-primary-300 button-lg">Primary themed div</div>
+      <div className="bg-primary-200 button-lg">Primary themed div</div>
+      <div className="bg-primary-100 button-lg">Primary themed div</div>
+      <div className="bg-primary-50 button-lg">Primary themed div</div>
     </div>
   );
 }
